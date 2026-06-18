@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Agent · Customer Success</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#E9EBF8;--card:#FFF;--primary:#5456D8;--p-light:#EDEEFF;
+  --navy:#1A1D3B;--muted:#8085A8;--border:#DDE0F4;
+  --green:#0E9F8E;--green-light:#E6F7F4;--amber:#E8883C;--amber-light:#FDF3EA;
+  --shadow:0 2px 14px rgba(84,86,216,.07);
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,sans-serif;background:var(--bg);color:var(--navy);font-size:14px;line-height:1.5}
+.page{max-width:1100px;margin:0 auto;padding:18px 18px 56px}
+
+/* HEADER */
+.top{display:flex;align-items:center;justify-content:space-between;background:var(--card);border-radius:14px;padding:13px 18px;box-shadow:var(--shadow);margin-bottom:16px}
+.top-left{display:flex;align-items:center;gap:13px}
+.agent-badge{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--acc-light);color:var(--acc)}
+.agent-badge svg{width:23px;height:23px}
+.agent-name{font-size:18px;font-weight:700;letter-spacing:-.3px}
+.agent-tagline{font-size:12.5px;color:var(--muted);margin-top:2px}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;border:1px solid var(--border);border-radius:20px;padding:7px 14px;transition:all .15s}
+.back-link:hover{color:var(--primary);border-color:var(--primary)}
+
+/* TWO TOP CARDS */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.card{background:var(--card);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
+.eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);padding-bottom:11px;margin-bottom:14px;border-bottom:1px solid var(--border)}
+.card-h{font-size:17px;font-weight:700;letter-spacing:-.2px}
+.card-lead{font-size:12.5px;color:var(--muted);margin-top:4px;margin-bottom:14px}
+.blist{list-style:none;display:flex;flex-direction:column;gap:9px}
+.blist li{position:relative;padding-left:19px;font-size:13px;color:#4A5568;line-height:1.45}
+.blist li::before{content:'';position:absolute;left:2px;top:7px;width:6px;height:6px;border-radius:50%;background:var(--acc)}
+.statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.stat{background:var(--bg);border-radius:10px;padding:12px;text-align:center}
+.stat-v{font-size:19px;font-weight:700;line-height:1;color:var(--acc)}
+.stat-l{font-size:10.5px;color:var(--muted);margin-top:5px;line-height:1.3}
+
+/* ARCHITECTURE FLOW */
+.flow-card{background:var(--card);border-radius:14px;padding:20px 22px 24px;box-shadow:var(--shadow)}
+.flow-title{font-size:16px;font-weight:700}
+.flow-sub{font-size:12.5px;color:var(--muted);margin-top:3px;margin-bottom:20px}
+.flow-step-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:9px}
+.sources{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.src{border:1.5px solid var(--green);background:var(--green-light);border-radius:12px;padding:13px 15px}
+.src.is-trigger{border-style:dashed;border-color:var(--primary);background:var(--p-light)}
+.src-name{font-size:13.5px;font-weight:700;color:var(--navy)}
+.src-sub{font-size:11.5px;color:var(--muted);margin:5px 0 9px}
+.src-pill{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:var(--green);border:1px solid var(--green);border-radius:20px;padding:2px 9px}
+.src.is-trigger .src-pill{color:var(--primary);border-color:var(--primary)}
+.arrow{display:flex;justify-content:center;color:var(--muted);font-size:18px;padding:7px 0}
+.proc{background:var(--p-light);border:1.5px solid var(--primary);border-radius:14px;padding:16px 20px}
+.proc-h{font-size:15px;font-weight:700;color:var(--primary);text-align:center;padding-bottom:10px;margin-bottom:12px;border-bottom:1px solid rgba(84,86,216,.2)}
+.steps{list-style:none;display:flex;flex-direction:column;gap:9px}
+.steps li{display:flex;gap:11px;font-size:13px;color:#3A3F66;line-height:1.4}
+.steps .n{flex-shrink:0;width:20px;height:20px;border-radius:50%;background:var(--primary);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.brief{background:var(--amber-light);border:1.5px solid var(--amber);border-radius:14px;padding:16px 20px}
+.brief-h{font-size:15px;font-weight:700;color:#B5651A}
+.brief-sub{font-size:12px;color:var(--muted);margin:3px 0 13px}
+.btable{width:100%;border-collapse:collapse;font-size:12.5px;background:var(--card);border-radius:10px;overflow:hidden}
+.btable th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:1px solid var(--border);background:#FCFCFE}
+.btable td{padding:9px 12px;border-bottom:1px solid var(--border);color:#4A5568}
+.btable tr:last-child td{border-bottom:none}
+.btable td.acct{font-weight:700;color:var(--navy)}
+.urg{display:inline-block;font-weight:700;color:#fff;background:var(--amber);border-radius:8px;padding:1px 8px;font-size:12px}
+.stg{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;background:#ECFDF5;color:#059669}
+.pushes{text-align:center;font-size:11.5px;color:var(--muted);margin-top:13px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}.sources{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="page" id="page">
+  <div class="top">
+    <div class="top-left">
+      <div class="agent-badge" id="badge"></div>
+      <div>
+        <div class="agent-name" id="name"></div>
+        <div class="agent-tagline" id="tagline"></div>
+      </div>
+    </div>
+    <a class="back-link" href="index.html">&larr; Back to dashboard</a>
+  </div>
+
+  <div class="grid2">
+    <section class="card">
+      <div class="eyebrow">Who is the agent</div>
+      <div class="card-h" id="whoH"></div>
+      <div class="card-lead" id="whoLead"></div>
+      <ul class="blist" id="who"></ul>
+      <div class="statrow" id="stats"></div>
+    </section>
+    <section class="card">
+      <div class="eyebrow">Uniqueness — time &amp; money</div>
+      <div class="card-h">What it solves</div>
+      <div class="card-lead" id="solvesLead"></div>
+      <ul class="blist" id="solves"></ul>
+    </section>
+  </div>
+
+  <section class="flow-card">
+    <div class="flow-title" id="flowTitle"></div>
+    <div class="flow-sub" id="flowSub"></div>
+
+    <div class="flow-step-label">Data sources</div>
+    <div class="sources" id="sources"></div>
+    <div class="arrow">&darr;</div>
+
+    <div class="proc">
+      <div class="proc-h" id="procH"></div>
+      <ul class="steps" id="steps"></ul>
+    </div>
+    <div class="arrow">&darr;</div>
+
+    <div class="brief">
+      <div class="brief-h" id="briefH"></div>
+      <div class="brief-sub" id="briefSub"></div>
+      <table class="btable"><thead><tr id="briefHead"></tr></thead><tbody id="briefBody"></tbody></table>
+    </div>
+    <div class="pushes" id="pushes"></div>
+  </section>
+</div>
+
+<script>
+const ICON_TARGET = '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/><path d="M12 1.5v3M12 19.5v3M22.5 12h-3M4.5 12h-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const ICON_GEAR = '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3.4" stroke="currentColor" stroke-width="2"/><path d="M12 1.5v3M12 19.5v3M22.5 12h-3M4.5 12h-3M19.1 4.9l-2.1 2.1M7 17l-2.1 2.1M19.1 19.1L17 17M7 7L4.9 4.9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+
+const AGENTS = {
+  strategic: {
+    name:'Strategic Agent', acc:'#0E9F8E', accLight:'#E6F7F4', icon:ICON_TARGET,
+    tagline:"Daily prioritization · the team's intelligent member",
+    whoH:'Strategic Agent',
+    whoLead:"Daily prioritization · the CSM's intelligent team member",
+    who:[
+      'Serves 3 CSMs managing 50+ accounts',
+      'Runs daily at 7am + on KPI alerts — no manual trigger needed',
+      'Proactively surfaces the top 5 at-risk accounts per CSM',
+      'Acts as a team member for risk prioritization — no manual scanning'
+    ],
+    stats:[['50+','accounts scanned daily'],['Top 5','per CSM each day'],['7am','daily brief delivery']],
+    solvesLead:'Eliminates manual scanning — flags risk before the CSM notices',
+    solves:[
+      'No manual scanning across 50 accounts each morning',
+      'Flags risk before the CSM notices — prevents churn proactively',
+      'One missed renewal = ₪50–150K ARR lost',
+      'Scales without headcount — 20 more accounts = same admin time',
+      'Better decisions with full CRM + dashboard context combined'
+    ],
+    flowTitle:'Strategic Agent — Architecture flow',
+    flowSub:'Data sources → analysis → priority brief → CSM delivery',
+    sources:[
+      {name:'HubSpot CRM', sub:'Accounts · health · tickets', pill:'API'},
+      {name:'Dashboard', sub:'Health scores · risk signals', pill:'API'},
+      {name:'Trigger', sub:'Daily 7am · KPI alert', pill:'event / cron', trigger:true}
+    ],
+    procH:'Agent — Claude',
+    steps:[
+      'Pulls all account data per CSM from CRM + dashboard',
+      'Cross-references signals: renewals, health scores, tickets, usage',
+      'Scores urgency across all 50 accounts — ranks top 5 per CSM',
+      'Generates a recommended next action per at-risk account'
+    ],
+    briefH:'Priority brief — per CSM',
+    briefSub:'Top 5 accounts · urgency score · stage · days to renewal · recommended action',
+    briefHead:['Account','Urgency','Stage','Renewal','Recommended action'],
+    briefRows:[
+      ['Nimbus','98','Live','12d','Schedule executive renewal call'],
+      ['Vertex','95','Live','21d','Address budget concerns directly'],
+      ['Catalyst','88','Live','64d','Re-engage declining champion'],
+      ['Horizon','85','Live','47d','Recover lost champion + replan'],
+      ['Keystone','82','Live','38d','Adoption + engagement recovery plan']
+    ],
+    pushes:'pushes to CSM'
+  },
+  postcall: {
+    name:'Operation Agent', acc:'#5456D8', accLight:'#EDEEFF', icon:ICON_GEAR,
+    tagline:'Post-call automation · transcript → ready-to-send outputs',
+    whoH:'Operation Agent',
+    whoLead:'Turns every client call into ready-to-review outputs',
+    who:[
+      'Activates after each client call — no manual trigger needed',
+      'Works from the call transcript (ready ~3 min after the call)',
+      'Drafts recap email, CRM update, action items and risk flags',
+      'Drafts everything — sends nothing without CSM approval'
+    ],
+    stats:[['4','outputs per call'],['~3 min','to transcript ready'],['100%','human-gated']],
+    solvesLead:'Removes post-call admin — keeps every record consistent',
+    solves:[
+      'Eliminates manual post-call admin work',
+      'Consistent, searchable CRM records every time',
+      'Catches commitments and risk signals a human may miss',
+      'Minutes per call instead of half an hour',
+      'Every output reviewed and approved by the CSM before it goes out'
+    ],
+    flowTitle:'Post-Call Agent — Architecture flow',
+    flowSub:'Transcript → analysis → drafts → CSM approval → delivery',
+    sources:[
+      {name:'Transcript', sub:'Call transcript · ~3 min after call', pill:'source'},
+      {name:'CRM', sub:'Account context · ownership', pill:'API'},
+      {name:'Trigger', sub:'Call ends', pill:'event', trigger:true}
+    ],
+    procH:'Agent — Claude',
+    steps:[
+      'Analyzes the transcript in its original language',
+      'Extracts decisions, commitments, issues and sentiment',
+      'Flags churn / upsell / competitor / blocker signals',
+      'Generates recap email, CRM note, action items & flags'
+    ],
+    briefH:'Draft pack — per call',
+    briefSub:'Recap email · CRM note · action items · risk & opportunity flags',
+    briefHead:['Output','Audience','Status','Next step'],
+    briefRows:[
+      ['Recap email','Client','Drafted','Awaiting CSM approval'],
+      ['CRM note + EN copy','Internal','Drafted','Awaiting CSM approval'],
+      ['Action items','Internal','Drafted','Awaiting CSM approval'],
+      ['Risk & opportunity flags','Internal','Drafted','Awaiting CSM approval']
+    ],
+    pushes:'awaits CSM approval before anything is sent'
+  }
+};
+
+function render() {
+  const id = new URLSearchParams(location.search).get('id');
+  const a = AGENTS[id] || AGENTS.strategic;
+  const page = document.getElementById('page');
+  page.style.setProperty('--acc', a.acc);
+  page.style.setProperty('--acc-light', a.accLight);
+  document.title = a.name + ' · Customer Success';
+  document.getElementById('badge').innerHTML = a.icon;
+  document.getElementById('name').textContent = a.name;
+  document.getElementById('tagline').textContent = a.tagline;
+  document.getElementById('whoH').textContent = a.whoH;
+  document.getElementById('whoLead').textContent = a.whoLead;
+  document.getElementById('who').innerHTML = a.who.map(t => `<li>${t}</li>`).join('');
+  document.getElementById('stats').innerHTML = a.stats.map(s => `<div class="stat"><div class="stat-v">${s[0]}</div><div class="stat-l">${s[1]}</div></div>`).join('');
+  document.getElementById('solvesLead').textContent = a.solvesLead;
+  document.getElementById('solves').innerHTML = a.solves.map(t => `<li>${t}</li>`).join('');
+  document.getElementById('flowTitle').textContent = a.flowTitle;
+  document.getElementById('flowSub').textContent = a.flowSub;
+  document.getElementById('sources').innerHTML = a.sources.map(s => `<div class="src${s.trigger ? ' is-trigger' : ''}"><div class="src-name">${s.name}</div><div class="src-sub">${s.sub}</div><span class="src-pill">${s.pill}</span></div>`).join('');
+  document.getElementById('procH').textContent = a.procH;
+  document.getElementById('steps').innerHTML = a.steps.map((t, i) => `<li><span class="n">${i + 1}</span><span>${t}</span></li>`).join('');
+  document.getElementById('briefH').textContent = a.briefH;
+  document.getElementById('briefSub').textContent = a.briefSub;
+  document.getElementById('briefHead').innerHTML = a.briefHead.map(h => `<th>${h}</th>`).join('');
+  document.getElementById('briefBody').innerHTML = a.briefRows.map(r => {
+    const cells = r.map((c, i) => {
+      if (i === 0) return `<td class="acct">${c}</td>`;
+      if (a.briefHead[i] === 'Urgency') return `<td><span class="urg">${c}</span></td>`;
+      if (a.briefHead[i] === 'Stage') return `<td><span class="stg">${c}</span></td>`;
+      return `<td>${c}</td>`;
+    });
+    return `<tr>${cells.join('')}</tr>`;
+  }).join('');
+  document.getElementById('pushes').textContent = a.pushes;
+}
+render();
+</script>
+</body>
+</html>
